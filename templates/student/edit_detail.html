@@ -1,0 +1,31 @@
+{% extends 'base/layout.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="box card p-5 ml-5" style="width: 70rem;">
+    <form action="" method="POST">
+        {% csrf_token %}
+
+            <div class="row">
+              <div class="col-6">
+                {{ form.full_name|as_crispy_field }}
+              </div>
+              <div class="col-6">
+                {{ form.age|as_crispy_field }}
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                  {{ form.grade|as_crispy_field }}
+                </div>
+                <div class="col-6">
+                  {{ form.major|as_crispy_field }}
+                </div>
+              </div>
+            {{ form.address|as_crispy_field }}
+              <br>
+            <button type="submit" class="btn btn-success">Save Student</button>
+    </form>
+    
+</div>
+{% endblock content %}
+    

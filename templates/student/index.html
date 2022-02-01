@@ -1,0 +1,82 @@
+{% extends 'base/layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="box card p-5 ml-5" style="width: 70rem;">
+        
+        {% for message in messages %}
+        <div class="alert alert-info" role="alert">
+            {{message}}
+          </div>
+        {% endfor %}
+            
+        <form action="" method="POST">
+
+            {% csrf_token %}
+
+            <div class="row">
+              <div class="col-6">
+                {{ form.full_name|as_crispy_field }}
+              </div>
+              <div class="col-6">
+                {{ form.age|as_crispy_field }}
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                  {{ form.grade|as_crispy_field }}
+                </div>
+                <div class="col-6">
+                  {{ form.major|as_crispy_field }}
+                </div>
+              </div>
+            {{ form.address|as_crispy_field }}
+              <br>
+            <button type="submit" class="btn btn-success">Save Student</button>
+            <br>
+            <br>
+            <hr>
+            <div class="student_list">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sno</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Grade</th>
+                        <th scope="col">Major</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for student in students %}
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{student.full_name}}</td>
+                            <td>{{student.age}}</td>
+                            <td>{{student.grade}}</td>
+                            <td>{{student.major}}</td>
+                            <td>{{student.address}}</td>
+                            <td>
+                                <a href="{% url 'student_delete' student.id %}" class="btn btn-sm btn-outline-danger" >delete</a>
+                                
+                                <a href=" {% url 'student_detail' student.id  %}" class="ml-3 btn btn-sm btn-outline-primary" >edit</a>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                            
+                     
+                      
+                    </tbody>
+                  </table>
+            </div>
+
+        </form>
+        
+            
+
+    </div>
+{% endblock content %}
+    
